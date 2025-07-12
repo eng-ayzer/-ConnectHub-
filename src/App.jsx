@@ -1,10 +1,12 @@
 import React from 'react'
+import Navbar from "./Components/Navbar";
 
 
 function App() {
   return (
     <div>
-      <h2 className='text-red-600 '>hello</h2>
+   
+        <Navbar />
     </div>
   )
 }
