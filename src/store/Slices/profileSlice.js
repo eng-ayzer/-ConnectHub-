@@ -2,6 +2,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../baseUrl";
 
+// get auth header image
+const getAuthHeaderImage = () => {
+  const token = localStorage.getItem("authToken");
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+      Accept: "multipart/form-data",
+    },
+  };
+};
 // Get Auth Header
 const getAuthHeader = () => {
   const token = localStorage.getItem("authToken");
@@ -13,7 +24,38 @@ const getAuthHeader = () => {
     },
   };
 };
+//Fetch uploadimage
+export const UploadImage = createAsyncThunk(
+  "profile/UploadImage",
+  async (data, thunkAPI) => {
+    try {
+      console.log("end data", data)
+      const formData = new FormData();
+      formData.append("image", data);
+      formData.append("type", "post");
+      const token = localStorage.getItem("authToken");
+      const response = await axios.post(
+              `${BASE_URL}/upload/image`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "multipart/form-data",
+                  Accept: "multipart/form-data",
+                },
+                body: formData
+              }
+            );
+            const result = await response.json();
+            return result.url; // Full image URL
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.error  || "Failed to upload image"
+      );
+    }
+  
 
+  }
+);
 // Fetch logged-in user's profile
 export const fetchMyProfile = createAsyncThunk(
     "profile/fetchMyProfile",
@@ -23,6 +65,7 @@ export const fetchMyProfile = createAsyncThunk(
           `${BASE_URL}/auth/profile`,
           getAuthHeader()
         );
+        console.log(response)
         return response.data;
       } catch (error) {
         return thunkAPI.rejectWithValue(
@@ -40,6 +83,7 @@ export const fetchUserProfile = createAsyncThunk(
         `${BASE_URL}/users/${userId}`,
         getAuthHeader()
       );
+      console.log(response)
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -56,11 +100,13 @@ export const updateUserProfile = createAsyncThunk(
   "profile/updateUserProfile",
   async (updateData, thunkAPI) => {
     try {
+      console.log(updateData)
       const res = await axios.put(
         `${BASE_URL}/auth/profile`,
         updateData,
         getAuthHeader()
       );
+      console.log(res)
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(
