@@ -36,7 +36,8 @@ const AboutPage = () => {
       reader.readAsDataURL(file);
     }
   };
-
+//add a redux, create a function in redux to help the api to upload the image and whatever it gives back it a url and 
+//savaes to the server and backend
   return (
     <div className="flex min-h-screen flex-col lg:flex-row">
       <Sidebar />

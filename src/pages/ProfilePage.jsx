@@ -8,7 +8,7 @@ import {
   followUser,
   unfollowUser,
 } from "../store/Slices/profileSlice";
-
+import { UploadImage } from "../store/Slices/profileSlice"
 import Sidebar from "../components/layout/Sidebar";
 import Footer from "../components/layout/Footer";
 import PostCard from "../components/posts/Postcard";
@@ -23,8 +23,11 @@ const ProfilePage = () => {
   const { id: routeId } = useParams();
 
   const { myProfile, profileUser, status, error } = useSelector((state) => state.profile);
-
-  const isOwnProfile = !routeId || myProfile?._id === routeId;
+  let isOwnProfile = false;
+  if(myProfile!=null){
+    isOwnProfile=true;
+  };
+  console.log("isownprofile", isOwnProfile)
   const userToShow = isOwnProfile ? myProfile : profileUser;
   const isFollowing = profileUser?.isFollowing;
 
@@ -89,6 +92,23 @@ const ProfilePage = () => {
     return <div className="flex justify-center items-center h-screen">Loading profile...</div>;
   }
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    console.log(file)
+    if (file) {
+      const imageUrl = URL.createObjectURL(file); // create temporary preview URL
+      console.log("file", file);
+      dispatch(UploadImage(file))
+      .then((url) => {
+      console.log("Image uploaded:", url);
+      // Use the URL in your application
+    })
+    .catch((error) => {
+      console.error("Upload failed:", error);
+    });
+    }
+  };
+
   return (
     <div className="flex flex-col lg:flex-row w-full">
       <Sidebar />
@@ -103,16 +123,15 @@ const ProfilePage = () => {
                 alt="Profile"
                 className="w-24 h-24 sm:w-28 sm:h-28 object-cover border-4 border-grey shadow-md transition-all duration-300"
               />
-              {isOwnProfile && (
-                <div className="mt-2">
-                  <CloudinaryUploadWidget
-                    uwConfig={uwConfig}
-                    setPublicId={setPublicId}
-                    setUploadResult={() => {}}
-                  />
-                </div>
-              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="mb-2 text-sm"
+              />
             </div>
+            
+
              {/* Name section*/}
 
             <div className="flex-1 justify-center w-full">
