@@ -210,6 +210,20 @@ const authSlice = createSlice({
       .addCase(fetchConnections.fulfilled, (state, action) => {
         state.followingIds = action.payload.following;
         state.followerIds = action.payload.followers;
+      })
+      // Update user when profile is updated
+      .addCase('profile/updateUserProfile/fulfilled', (state, action) => {
+        if (state.user && (state.user.id === action.payload.id || state.user._id === action.payload.id)) {
+          state.user = { ...state.user, ...action.payload };
+          console.log("Updated user in auth slice:", state.user);
+        }
+      })
+      // Update user when profile is fetched
+      .addCase('profile/fetchMyProfile/fulfilled', (state, action) => {
+        if (state.user && (state.user.id === action.payload.id || state.user._id === action.payload.id)) {
+          state.user = { ...state.user, ...action.payload };
+          console.log("Updated user in auth slice from fetch:", state.user);
+        }
       });
     
 

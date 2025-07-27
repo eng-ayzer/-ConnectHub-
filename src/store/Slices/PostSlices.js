@@ -90,6 +90,9 @@ export const createPost = createAsyncThunk(
         getAuthHeader()
       );
 
+      // Note: Notifications are handled locally in the notification slice
+      // since there's no backend notification endpoint
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -103,9 +106,32 @@ export const deletePost = createAsyncThunk(
   "posts/deletePost",
   async (postId, thunkAPI) => {
     try {
-      await axios.delete(`${BASE_URL}/posts/${postId}`, getAuthHeader());
+      const token = localStorage.getItem("authToken");
+      console.log("Delete post API call:", `${BASE_URL}/posts/${postId}`);
+      console.log("Post ID being deleted:", postId);
+      console.log("Auth token exists:", !!token);
+      
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      
+      // Try different endpoint formats
+      let response;
+      try {
+        response = await axios.delete(`${BASE_URL}/posts/${postId}`, getAuthHeader());
+      } catch (firstError) {
+        console.log("First attempt failed, trying alternative endpoint...");
+        // Try with /api prefix
+        response = await axios.delete(`/api/posts/${postId}`, getAuthHeader());
+      }
+      
+      console.log("Delete response:", response);
       return postId;
     } catch (error) {
+      console.error("Delete post error:", error);
+      console.error("Error response:", error.response);
+      console.error("Error status:", error.response?.status);
+      console.error("Error data:", error.response?.data);
       return thunkAPI.rejectWithValue(
         error.response?.data?.error || error.message
       );

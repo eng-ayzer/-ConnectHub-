@@ -8,13 +8,14 @@ import {
   createPost,
 } from "../store/Slices/PostSlices";
 import { Loader2, Image as ImageIcon } from "lucide-react";
-import Sidebar from "../components/layout/Sidebar";
+import Sidebar from "../Components/layout/Sidebar";
 import { useState } from "react";
 import UploadImages from "./UploadImages";
 import CloudinaryUploadWidget from '../components/cloudinaryUploadWidget';
 import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
 import { Cloudinary } from '@cloudinary/url-gen';
 import Footer from "../components/layout/Footer";
+import defaultAvatar from "../assets/defaultimage.png";
 
 function CreatePostPage() {
 
@@ -96,9 +97,12 @@ function CreatePostPage() {
         >
           <div className="flex items-start gap-4">
             <img
-              src={user?.avatarUrl || "/default-avatar.png"}
+              src={user?.avatarUrl || defaultAvatar}
               alt="Avatar"
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-12 h-12 rounded-full object-cover border-3 border-blue-200 shadow-md hover:shadow-lg transition-all duration-200"
+              onError={(e) => {
+                e.target.src = defaultAvatar;
+              }}
             />
             <textarea
               rows="3"
@@ -123,10 +127,17 @@ function CreatePostPage() {
           )}
 
           <div className="flex items-center justify-between border-t pt-3">
-            <label className="flex items-center gap-2 cursor-pointer text-blue-600 hover:text-blue-800">
-              
+            <div className="flex items-center gap-4">
               <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
-            </label>
+              {publicId && (
+                <span className="text-sm text-green-600 flex items-center gap-1">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  Image uploaded
+                </span>
+              )}
+            </div>
 
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-500">
