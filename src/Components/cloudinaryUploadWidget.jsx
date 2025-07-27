@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { FaCamera } from "react-icons/fa";
 
-
+console.log ("uploadImageClicked")
 const CloudinaryUploadWidget = ({ uwConfig, setPublicId, setUploadResult }) => {
   const uploadWidgetRef = useRef(null);
   const uploadButtonRef = useRef(null);

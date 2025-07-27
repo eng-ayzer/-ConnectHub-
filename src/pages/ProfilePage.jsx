@@ -8,9 +8,13 @@ import {
   followUser,
   unfollowUser,
 } from "../store/Slices/profileSlice";
+
 import { checkAuthStatus } from "../store/Slices/AuthSlices";
 
 import Sidebar from "../Components/layout/Sidebar";
+
+
+
 import Footer from "../components/layout/Footer";
 import PostCard from "../Components/posts/Postcard";
 import CloudinaryUploadWidget from "../Components/cloudinaryUploadWidget";
@@ -24,11 +28,13 @@ const ProfilePage = () => {
   const { id: routeId } = useParams();
 
   const { myProfile, profileUser, status, error } = useSelector((state) => state.profile);
+
   const { user: authUser } = useSelector((state) => state.auth);
 
   const isOwnProfile = !routeId || myProfile?._id === routeId;
   // Use auth user as fallback for own profile if profile data is not loaded yet
   const userToShow = isOwnProfile ? (myProfile || authUser) : profileUser;
+
   const isFollowing = profileUser?.isFollowing;
 
   // Debug logging
@@ -292,6 +298,23 @@ const ProfilePage = () => {
     );
   }
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    console.log(file)
+    if (file) {
+      const imageUrl = URL.createObjectURL(file); // create temporary preview URL
+      console.log("file", file);
+      dispatch(UploadImage(file))
+      .then((url) => {
+      console.log("Image uploaded:", url);
+      // Use the URL in your application
+    })
+    .catch((error) => {
+      console.error("Upload failed:", error);
+    });
+    }
+  };
+
   return (
     <div className="flex flex-col lg:flex-row w-full">
       <Sidebar />
@@ -322,6 +345,7 @@ const ProfilePage = () => {
                   setImageError(true);
                 }}
               />
+
               {isOwnProfile && (
                 <div className="mt-2 space-y-2">
                   <CloudinaryUploadWidget
@@ -402,7 +426,10 @@ const ProfilePage = () => {
                   )}
                 </div>
               )}
+
             </div>
+            
+
              {/* Name section*/}
 
             <div className="flex-1 justify-center w-full">
