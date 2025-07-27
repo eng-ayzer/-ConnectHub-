@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for ConnectHub */
+
+/* General Layout */
+body {
+    background-color: #f3f4f6; /* bg-gray-100 */
+    color: #111827; /* text-gray-900 */
+    min-height: 100vh; /* min-h-screen */
+    font-family: 'Inter', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    @apply flex items-center justify-between px-4 py-3 bg-white shadow-md sticky top-0 z-50;
+}
+
+.navbar-logo {
+    @apply text-xl font-bold text-blue-600;
+}
+
+.navbar-links {
+    @apply flex gap-4;
+}
+
+.navbar-link {
+    @apply text-gray-700 hover:text-blue-600 transition;
+}
+
+/* Auth Forms */
+.auth-form {
+    @apply bg-white p-6 rounded-lg shadow-md max-w-md mx-auto mt-12;
+}
+
+.auth-input {
+    @apply w-full p-2 border border-gray-300 rounded mt-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400;
+}
+
+.auth-button {
+    @apply w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition;
+}
+
+/* Feed & Posts */
+.feed-container {
+    @apply max-w-xl mx-auto mt-8;
+}
+
+.post-card {
+    @apply bg-white rounded-lg shadow p-4 mb-6;
+}
+
+.post-header {
+    @apply flex items-center gap-3 mb-2;
+}
+
+.post-username {
+    @apply font-semibold text-blue-700;
+}
+
+.post-timestamp {
+    @apply text-xs text-gray-400;
+}
+
+.post-content {
+    @apply mb-2;
+}
+
+.post-image {
+    @apply w-full rounded mt-2;
+}
+
+.post-actions {
+    @apply flex items-center gap-4 mt-2;
+}
+
+.like-button {
+    @apply flex items-center gap-1 text-gray-500 hover:text-red-500 transition;
+}
+
+/* Profile Page */
+.profile-container {
+    @apply max-w-xl mx-auto mt-8 bg-white p-6 rounded-lg shadow;
+}
+
+.profile-header {
+    @apply flex items-center gap-4 mb-4;
+}
+
+.profile-image {
+    @apply w-16 h-16 rounded-full object-cover bg-gray-200;
+}
+
+.profile-username {
+    @apply text-2xl font-bold;
+}
+
+.profile-bio {
+    @apply text-gray-600 mt-2;
+}
+
+.follow-button {
+    @apply px-4 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 transition;
+}
+
+.unfollow-button {
+    @apply px-4 py-1 rounded bg-gray-300 text-gray-700 hover:bg-gray-400 transition;
+}
+
+/* Create Post */
+.create-post-form {
+    @apply bg-white p-4 rounded-lg shadow mb-8;
+}
+
+.create-post-input {
+    @apply w-full p-2 border border-gray-300 rounded mt-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400;
+}
+
+.create-post-button {
+    @apply bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .feed-container, .profile-container {
+        @apply px-2;
+    }
+}

@@ -7,8 +7,8 @@ import CloudinaryUploadWidget from '../components/cloudinaryUploadWidget';
 
 const UploadImages = () => {
   // Configuration
-  const cloudName = 'doa9xmvsa';
-  const uploadPreset = 'connecthub';
+  const cloudName = 'dbtlgi6vf';
+  const uploadPreset = 's4co4d3l';
 
    
 
