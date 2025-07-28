@@ -8,7 +8,7 @@ import { Navigate } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import RegistrationPage from "./pages/registrationPage.jsx";
 import Signin from "./pages/SignForm.jsx";
-import ProtectedRoutes from "./components/auth/ProtectRoutes.jsx";
+import ProtectedRoutes from "./components/auth/ProtectRoutes";
 import CreatePostPage from "./pages/CreatePostPage.jsx";
 import NotificationPage from "./pages/NotificationsPage.jsx";
 import SearchPage from "./pages/SearchsPage.jsx";
