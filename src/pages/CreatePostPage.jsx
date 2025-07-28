@@ -8,7 +8,7 @@ import {
   createPost,
 } from "../store/Slices/PostSlices";
 import { Loader2, Image as ImageIcon } from "lucide-react";
-import Sidebar from "../Components/layout/Sidebar";
+import Sidebar from "../components/layout/Sidebar";
 import { useState } from "react";
 import UploadImages from "./UploadImages";
 import CloudinaryUploadWidget from '../components/cloudinaryUploadWidget';

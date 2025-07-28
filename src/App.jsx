@@ -8,12 +8,12 @@ import { Navigate } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import RegistrationPage from "./pages/registrationPage.jsx";
 import Signin from "./pages/SignForm.jsx";
-import ProtectedRoutes from "./Components/auth/ProtectRoutes.jsx";
+import ProtectedRoutes from "./components/auth/ProtectRoutes.jsx";
 import CreatePostPage from "./pages/CreatePostPage.jsx";
 import NotificationPage from "./pages/NotificationsPage.jsx";
 import SearchPage from "./pages/SearchsPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
-import Header from "./Components/layout/Header.jsx";
+import Header from "./components/layout/Header.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 
 

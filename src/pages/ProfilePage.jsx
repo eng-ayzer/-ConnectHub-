@@ -11,17 +11,17 @@ import {
 
 import { checkAuthStatus } from "../store/Slices/AuthSlices";
 
-import Sidebar from "../Components/layout/Sidebar";
+import Sidebar from "../components/layout/Sidebar";
 
 
 
 import Footer from "../components/layout/Footer";
-import PostCard from "../Components/posts/Postcard";
-import CloudinaryUploadWidget from "../Components/cloudinaryUploadWidget";
-import EditableField from "../Components/profile/EditField";
-import FollowButton from "../Components/profile/FollowButton";
+import PostCard from "../components/posts/Postcard";
+import CloudinaryUploadWidget from "../components/cloudinaryUploadWidget";
+import EditableField from "../components/profile/EditField";
+import FollowButton from "../components/profile/FollowButton";
 import defaultpic from "../assets/defaultimage.png";
-import { formatName } from "../Components/utils/formatName";
+import { formatName } from "../components/utils/formatName";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();

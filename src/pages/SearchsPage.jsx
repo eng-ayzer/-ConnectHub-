@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Sidebar from "../Components/layout/Sidebar";
+import Sidebar from "../components/layout/Sidebar";
 
 import axios from "axios";
 import { BASE_URL } from "../store/baseUrl";
